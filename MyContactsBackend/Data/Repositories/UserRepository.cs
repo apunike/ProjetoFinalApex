@@ -1,28 +1,48 @@
-﻿using Data.Interfaces;
+﻿using Data.DataBaseConnection;
+using Data.Interfaces;
+using Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public void CreateUser()
+
+        public ApiDbContext DbContext { get; set; }
+
+        public UserRepository(ApiDbContext dbContext)
         {
-            
+            DbContext = dbContext;
         }
 
-        public void DeleteUser()
+        public void CreateUser(User user)
         {
-            
+            DbContext.Users.Add(user);
+
+            DbContext.SaveChanges();
         }
 
-        public List<string> GetUsers()
+        public void DeleteUser(User user)
         {
-            return new List<string>(){ "joao", "Maria", " Paulo"};
+            DbContext.Users.Remove(user);
+
+            DbContext.SaveChanges();
         }
 
-        public void UpdateUser()
+        public List<User> GetUsers()
         {
-           
+            return DbContext.Users.ToList();
+
+        }
+
+        public void UpdateUser(User user)
+        {
+            DbContext.Users.Update(user);
+
+            DbContext.SaveChanges();
         }
     }
 }
