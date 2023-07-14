@@ -7,7 +7,8 @@ namespace Data.Interfaces
     {
         void CreateUser(User user) ;
         List<User> GetUsers();
+        User GetById(int id);
         void UpdateUser(User user);
         void DeleteUser(User user);
-    }
+    } 
 }
