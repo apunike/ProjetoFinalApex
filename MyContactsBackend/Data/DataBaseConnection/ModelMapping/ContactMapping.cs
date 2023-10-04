@@ -20,9 +20,6 @@ namespace Data.DataBaseConnection.ModelMapping
                 .WithMany(user => user.Contacts)
                 .HasForeignKey(contact => contact.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-
-
         }
     }
 }

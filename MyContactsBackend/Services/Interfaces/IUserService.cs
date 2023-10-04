@@ -9,6 +9,7 @@ namespace Services.Interfaces
         Task CreatAsync(UserCreateRequestDto userCreateDto);
         Task<List<UserResponseDto>> GetAllAsync();
         Task<bool> UpdateAsync(UserUpdateRequestDto userUpdateDto);
+        Task UpdateToAdmin(int userId);
         Task<bool> DeleteAsync(int id);
     }
 }

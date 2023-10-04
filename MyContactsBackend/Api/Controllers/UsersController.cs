@@ -10,7 +10,7 @@ using Utils.Dtos.User;
 namespace Api.Controllers
 {
     [ApiController]
-    
+
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
@@ -21,19 +21,19 @@ namespace Api.Controllers
             _userService = userService;
         }
 
-        [Authorize (Policy = "Administrator")]
+        [Authorize(Policy = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
             try
             {
                 var result = await _userService.GetAllAsync();
-                  
+
                 return Ok(new ApiResponse<List<UserResponseDto>>(result));
             }
             catch (Exception ex)
             {
-                return BadRequest(new ApiResponse (ex.Message));
+                return BadRequest(new ApiResponse(ex.Message));
             }
         }
 
@@ -42,22 +42,22 @@ namespace Api.Controllers
         {
             try
             {
-               await _userService.CreatAsync(userDto);
+                await _userService.CreatAsync(userDto);
 
-                return Ok(new ApiResponse()); 
+                return Ok(new ApiResponse());
             }
             catch (Exception ex)
             {
 
-                return BadRequest(new ApiResponse (ex.Message));
+                return BadRequest(new ApiResponse(ex.Message));
             }
-
         }
-        [Authorize(Policy = "Adminstator")]
+
+        [Authorize(Policy = "Adminstrator")]
         [HttpPut]
         public async Task<IActionResult> UpdateUser([FromBody] UserUpdateRequestDto userDto)
         {
-            try 
+            try
             {
                 var success = await _userService.UpdateAsync(userDto);
 
@@ -75,31 +75,52 @@ namespace Api.Controllers
             {
                 return BadRequest(new ApiResponse(ex.Message));
             }
-
         }
-        [Authorize(Policy = "Adminstrator")]
-        [HttpDelete("{id}")]
-        public async Task <IActionResult> DeleteUser([FromRoute] int id)
+       
+        
+        [HttpPut("Update-to-Admin/{id}")]
+
+        public async Task<IActionResult> UpdateToAdmin([FromRoute] int id)
         {
             try
             {
-                var success =await _userService.DeleteAsync(id);
-
-                if (success == true)
-                {
-                    return Ok(new ApiResponse());
-                }
-                else
-                {
-                    return BadRequest(new ApiResponse(">>User Not Found<<"));
-                }
+                await _userService.UpdateToAdmin(id);
+                return Ok(new ApiResponse());
             }
             catch (Exception ex)
             {
                 return BadRequest(new ApiResponse(ex.Message));
-
             }
 
         }
+
+    
+
+
+
+    [Authorize(Policy = "Adminstrator")]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUser([FromRoute] int id)
+    {
+        try
+        {
+            var success = await _userService.DeleteAsync(id);
+
+            if (success == true)
+            {
+                return Ok(new ApiResponse());
+            }
+            else
+            {
+                return BadRequest(new ApiResponse(">>User Not Found<<"));
+            }
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponse(ex.Message));
+
+        }
+
     }
+}
 }

@@ -20,6 +20,7 @@ namespace Api.Controllers
         {
             _contactService = contactService;
         }
+
         [Authorize(Policy = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> GetAllContacts()
@@ -37,6 +38,7 @@ namespace Api.Controllers
             }
 
         }
+
         [Authorize(Policy = "Consumer")]
         [HttpPost]
         public async Task<IActionResult> CreateNewContact([FromBody] ContactCreateRequestDto contactDto)

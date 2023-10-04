@@ -26,8 +26,7 @@ namespace Api
 
         public IConfiguration Configuration { get; }
 
-      
-        public void ConfigureServices(IServiceCollection services)
+              public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetValue<string>("DataBaseConnection");
 
@@ -85,11 +84,13 @@ namespace Api
                     ValidateAudience = false
                 };
 
-                services.AddAuthorization(options =>
-                {
-                    options.AddPolicy("Administrator", p => p.RequireClaim(ClaimTypes.Role, "admin"));
-                    options.AddPolicy("Consumer", p => p.RequireClaim(ClaimTypes.Role, "consumer"));
-                });
+              
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrator", p => p.RequireClaim(ClaimTypes.Role, "admin"));
+                options.AddPolicy("Consumer", p => p.RequireClaim(ClaimTypes.Role, "consumer"));
             });
         }
 

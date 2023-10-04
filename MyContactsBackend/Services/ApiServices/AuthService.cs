@@ -53,9 +53,10 @@ namespace Services.ApiServices
                 new Claim(ClaimTypes.Role, user.Role)
             });
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration ["Jwt:Key"]));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expiresAt = DateTime.UtcNow.AddMinutes(int.Parse(_configuration["Jwt:ExpireMinutes"]));
+            var expiresAt = DateTime.Now.AddMinutes(int.Parse(_configuration["Jwt:ExpireMinutes"]));
+          
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

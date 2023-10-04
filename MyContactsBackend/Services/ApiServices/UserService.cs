@@ -25,7 +25,7 @@ namespace Services.ApiServices
                 Name = userCreateDto.Name,
                 Email = userCreateDto.Email,
                 Password = userCreateDto.Password,
-                Role = "user",
+                Role = "consumer",
                 CreatedAdt = DateTime.Now
             };
 
@@ -89,11 +89,24 @@ namespace Services.ApiServices
 
                 await _userRepository.SaveChangeAsync();
 
-
-
                 return true;
             }
             return false;
+
+        }
+        public async Task UpdateToAdmin(int UserId)
+        {
+            var existingUser = await _userRepository.GetByIdAsync(UserId);
+
+            if (existingUser != null)
+            {
+                existingUser.Role = "admin";
+                existingUser.UpdatedAdt = DateTime.Now;
+
+                _userRepository.Update(existingUser);
+
+                await _userRepository.SaveChangeAsync();
+            }
 
         }
 
