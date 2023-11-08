@@ -18,7 +18,7 @@ namespace Services.ApiServices
             _userRepository = userRepository;
         }
 
-        public async Task CreatAsync(UserCreateRequestDto userCreateDto)
+        public async Task CreateAsync(UserCreateRequestDto userCreateDto)
         {
             var user = new User()
             {
@@ -29,9 +29,9 @@ namespace Services.ApiServices
                 CreatedAdt = DateTime.Now
             };
 
-           await  _userRepository.CreateAsync(user);
-
-            await _userRepository.SaveChangeAsync();
+           await _userRepository.CreateAsync(user);
+          
+           await _userRepository.SaveChangeAsync();
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -48,7 +48,6 @@ namespace Services.ApiServices
             }
 
             return false;
-
         }
 
         public async Task<List<UserResponseDto>> GetAllAsync()

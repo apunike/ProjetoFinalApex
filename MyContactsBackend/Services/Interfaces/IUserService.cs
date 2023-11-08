@@ -6,7 +6,7 @@ namespace Services.Interfaces
 {
     public interface IUserService
     {
-        Task CreatAsync(UserCreateRequestDto userCreateDto);
+        Task CreateAsync(UserCreateRequestDto userCreateDto);
         Task<List<UserResponseDto>> GetAllAsync();
         Task<bool> UpdateAsync(UserUpdateRequestDto userUpdateDto);
         Task UpdateToAdmin(int userId);

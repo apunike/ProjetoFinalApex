@@ -42,7 +42,7 @@ namespace Api.Controllers
         {
             try
             {
-                await _userService.CreatAsync(userDto);
+                await _userService.CreateAsync(userDto);
 
                 return Ok(new ApiResponse());
             }
@@ -77,7 +77,7 @@ namespace Api.Controllers
             }
         }
        
-        
+        [Authorize(Policy =  "Administrator")]
         [HttpPut("Update-to-Admin/{id}")]
 
         public async Task<IActionResult> UpdateToAdmin([FromRoute] int id)
